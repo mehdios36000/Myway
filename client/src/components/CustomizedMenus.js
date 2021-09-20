@@ -83,6 +83,7 @@ export default function CustomizedMenus() {
     setAnchorEl(null);
     sessionStorage.removeItem("Email");
     window.location.replace("http://localhost:3000/");
+    
   };
 
  
