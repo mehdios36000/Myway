@@ -10,6 +10,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Axios from 'axios';
+
+
 
 function Copyright(props) {
   return (
@@ -27,15 +30,32 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState(''); 
+  const [login, setLogin] = React.useState(""); 
+  const signin= () => {
+   
+    Axios.post("http://localhost:1337/login",{
+      email: email,
+      password: password,
+    
+    }).then((response) => {
+     if(response.data.message){
+       setLogin(response.data.message);
+     }else{
+      sessionStorage.setItem('Email',response.data[0].Email);
+      window.location.replace("http://localhost:3000/");
+
+
+     }
+    
+
+    })
+ 
+   
   };
+
+ 
 
   return (
     <ThemeProvider theme={theme}>
@@ -55,7 +75,10 @@ export default function SignIn() {
           <Typography component="h1" variant="h5">
             Se connecter 
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Typography >
+            {login}
+          </Typography>
+          <Box   noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -63,6 +86,7 @@ export default function SignIn() {
               id="email"
               label="Adresse Email"
               name="email"
+              onChange={event => setEmail(event.target.value)}
               autoComplete="email"
               autoFocus
             />
@@ -72,6 +96,7 @@ export default function SignIn() {
               fullWidth
               name="password"
               label="Mot de passe"
+              onChange={event => setPassword(event.target.value)}
               type="password"
               id="password"
               autoComplete="current-password"
@@ -84,6 +109,9 @@ export default function SignIn() {
               style={{ color: 'white',
           backgroundColor: '#FFE061', }}
               sx={{ mt: 3, mb: 2 }}
+              onClick={signin}
+              method="post"
+             
             >
               Se connecter
             </Button>

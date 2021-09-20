@@ -61,15 +61,30 @@ const StyledMenu = styled((props) => (
 export default function CustomizedMenus() {
 
   const [anchorEl, setAnchorEl] = useState(null);
+  const [loginStatus, setLoginStatus] = useState(false);
+
  
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
+   
     setAnchorEl(event.currentTarget);
+    if(sessionStorage.getItem("Email")){
+      setLoginStatus(true);
+    }
+    else{
+    }
+  
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleCloseSignout = () => {
+    setAnchorEl(null);
+    sessionStorage.removeItem("Email");
+    window.location.replace("http://localhost:3000/");
+  };
+
  
 
 
@@ -114,10 +129,8 @@ export default function CustomizedMenus() {
           <BookIcon/>
           Blog
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple component={Link} to={'/SignIn'}>
-         <AddIcon/>
-          Se connecter/S'inscire
-        </MenuItem>
+        {loginStatus ?  <MenuItem onClick={handleCloseSignout} disableRipple component={Link} to={'/'}><AddIcon/>se deconnecter</MenuItem> : <MenuItem onClick={handleClose} disableRipple component={Link} to={'/SignIn'}><AddIcon/>se connecter/s'inscrire</MenuItem>}
+        
       </StyledMenu>
     </div>
   );

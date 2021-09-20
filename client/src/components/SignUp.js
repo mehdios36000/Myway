@@ -10,6 +10,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Axios from 'axios';
+
+
 
 
 
@@ -29,24 +32,39 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
-    const Emailref = React.useRef();
-    const Passwordref = React.useRef();
-    const nameref = React.useRef();
-    const Dateref = React.useRef();
-    const Schoolref = React.useRef();
-    const Graderef= React.useRef();
-    const Cityref = React.useRef();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [city, setCity] = React.useState('');
+  const [date, setDate] = React.useState(new Date());
+  const [School, setSchool] = React.useState('');
+  const [Grade, setGrade] = React.useState('');
 
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+  const register= () => {
+   
+    Axios.post("http://localhost:1337/register",{
+      email: email,
+      password: password,
+      name: name,
+      city: city,
+      date: date,
+      school: School,
+      grade: Grade
+    }).then((response) => {
+      console.log(response);
+    
+
+    })
+ 
+   
   };
+
+
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -66,16 +84,21 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             S'inscrire
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Typography component="h1" variant="h5" className="error">
+            remplissez tous les champs pour activer le bouton s'inscrire
+
+          </Typography>
+         
+          <Box    noValidate  sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="lastName"
-                  ref={nameref}
                   label="nom complet"
-                  name="lastName"
+                  name="name"
+                  onChange={(e) => setName(e.target.value)}
                   autoComplete="lname"
                 />
               </Grid>
@@ -84,20 +107,20 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="email"
-                  ref={Emailref}
                   label="Adresse email"
                   name="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
                 />
               </Grid>
               <Grid item xs={12}>
                     <TextField
                     id="date"
-                    ref={Dateref}
                     fullWidth
                     label="Date de naissance"
                     type="date"
                     name="date"
+                    onChange={(e) => setDate(e.target.value)}
                     InputLabelProps={{
                         shrink: true,
                        }}
@@ -108,9 +131,9 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="School"
-                  ref={Schoolref}
                   label="Nom de l'etablissement"
                   name="School"
+                  onChange={(e) => setSchool(e.target.value)}
                   autoComplete="lname"
                 />
               </Grid>
@@ -119,9 +142,9 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="Grade"
-                  ref={Graderef}
                   label="Niveau d'etude"
                   name="Grade"
+                  onChange={(e) => setGrade(e.target.value)}
                   autoComplete="lname"
                 />
               </Grid>
@@ -130,9 +153,9 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="City"
-                  ref={Cityref}
                   label="Ville"
                   name="City"
+                  onChange={(e) => setCity(e.target.value)}
                   autoComplete="lname"
                 />
               </Grid>
@@ -144,7 +167,7 @@ export default function SignUp() {
                   label="Mot de passe"
                   type="password"
                   id="password"
-                  ref={Passwordref}
+                  onChange={(e) => setPassword(e.target.value)}
                   autoComplete="new-password"
                 />
               </Grid>
@@ -152,6 +175,8 @@ export default function SignUp() {
                 
               </Grid>
             </Grid>
+           
+
             <Button
               type="submit"
               fullWidth
@@ -159,9 +184,17 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
               style={{ color: 'white',
           backgroundColor: '#FFE061', }}
+     
+              disabled={!(email && password && name && city && date && School && Grade)}
+              onClick={register}
+              
+             
             >
               S'inscrire
             </Button>
+
+
+            
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/SignIn" variant="body2" style={{ color:"black",textDecoration:"none"}}>
@@ -170,6 +203,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
           </Box>
+       
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
