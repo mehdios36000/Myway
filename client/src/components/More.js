@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core'
 import ImageCard from './imageCard.js'
 import places from '../static/places.js'
 import useWindowPostion from '../hook/useWindowPostion.js'
+import ImageCardCon2 from './imageCardCon2.js'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,7 +24,7 @@ const More = () => {
     const checked= useWindowPostion("header");
     return (
         <div className={classes.root} id="More" >
-            <ImageCard place={places[1]} checked={checked}/>
+            <ImageCardCon2 place={places[1]} checked={checked}/>
             <ImageCard place={places[0]} checked={checked}/>
             
         </div>

@@ -8,8 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Collapse } from '@material-ui/core';
-import {Link} from 'react-router-dom';
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,10 +49,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function ImageCard({place,checked}) {
-  
+function ImageCardCon({place,checked}) {
   
     const classes = useStyles();
+    const handleClick = () => {
+        if(sessionStorage.getItem("Id")==null){
+            window.location.replace("http://localhost:3000/SignIn");
+        }
+        else{
+            window.location.replace("http://localhost:3000/Schedule");
+        }
+    }
  
   return (
       <Collapse in={checked} {...(checked? {timeout:1000}:{})} >
@@ -75,8 +80,8 @@ function ImageCard({place,checked}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" component={Link} to="/OrientationCon" className={classes.Button}>
-          En savoir plus
+        <Button size="small" onClick={handleClick} className={classes.Button}>
+        prendre rendez-vous
         </Button>
       </CardActions>
     </Card>
@@ -84,4 +89,4 @@ function ImageCard({place,checked}) {
   );
 }
 
-export default ImageCard;
+export default ImageCardCon;

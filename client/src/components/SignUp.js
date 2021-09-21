@@ -53,12 +53,13 @@ export default function SignUp() {
       school: School,
       grade: Grade
     }).then((response) => {
-      console.log(response);
     
+      console.log(response);
+      
 
     })
  
-   
+    window.location.replace("http://localhost:3000/SignIn");
   };
 
 
@@ -104,13 +105,15 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  
                   fullWidth
                   id="email"
                   label="Adresse email"
+                  type="email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
+                  required
                 />
               </Grid>
               <Grid item xs={12}>
@@ -185,10 +188,8 @@ export default function SignUp() {
               style={{ color: 'white',
           backgroundColor: '#FFE061', }}
      
-              disabled={!(email && password && name && city && date && School && Grade)}
+          disabled={!(email.includes("@") && password && name && city && date && School && Grade)}
               onClick={register}
-              
-             
             >
               S'inscrire
             </Button>

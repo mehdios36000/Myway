@@ -32,11 +32,9 @@ app.post("/register",(req,res)=>{
         console.log(err);
     });
 });
-
 app.post("/login",(req,res)=>{
     const email=req.body.email;
     const password=req.body.password;
-
     db.query("SELECT  * FROM `Users` WHERE Email=? AND password=? ",[email,password],(err,data)=>{
        if(err){
            console.log({err:err});

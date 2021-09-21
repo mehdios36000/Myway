@@ -69,10 +69,11 @@ export default function CustomizedMenus() {
   const handleClick = (event) => {
    
     setAnchorEl(event.currentTarget);
-    if(sessionStorage.getItem("Email")){
+    if(sessionStorage.getItem("Id")){
       setLoginStatus(true);
     }
     else{
+      console.log("not logged in");
     }
   
   };
@@ -81,7 +82,7 @@ export default function CustomizedMenus() {
   };
   const handleCloseSignout = () => {
     setAnchorEl(null);
-    sessionStorage.removeItem("Email");
+    sessionStorage.removeItem("Id");
     window.location.replace("http://localhost:3000/");
     
   };

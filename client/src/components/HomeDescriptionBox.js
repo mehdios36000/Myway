@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles(theme => ({
+
     container:{
         display: 'flex',
         flexDirection: 'column',
@@ -19,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     description: {
         fontFamily: 'Nunito',
         fontSize: '1.5rem',
+        [theme.breakpoints.down('md')]: {
+            textAlign: 'center',
+        }
     },
 
 
@@ -33,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 const HomeDescriptionBox = () => {
     const classes= useStyles();
     return (
-        <div>
+        <div >
             <div className={classes.container}>
             <h1 className={classes.title}>Description</h1>
             <p className={classes.description}>

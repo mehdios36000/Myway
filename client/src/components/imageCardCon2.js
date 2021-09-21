@@ -8,8 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Collapse } from '@material-ui/core';
-import {Link} from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,8 +50,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function ImageCard({place,checked}) {
-  
+function ImageCardCon2({place,checked}) {
   
     const classes = useStyles();
  
@@ -75,8 +73,8 @@ function ImageCard({place,checked}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" component={Link} to="/OrientationCon" className={classes.Button}>
-          En savoir plus
+        <Button size="small" component={Link} to="/studentCon" className={classes.Button}>
+           En savoir Plus
         </Button>
       </CardActions>
     </Card>
@@ -84,4 +82,4 @@ function ImageCard({place,checked}) {
   );
 }
 
-export default ImageCard;
+export default ImageCardCon2;
