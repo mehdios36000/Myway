@@ -4,7 +4,6 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -29,36 +28,31 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState(''); 
-  const [login, setLogin] = React.useState(""); 
-  const signin= () => {
-   
-    Axios.post("http://localhost:1337/login",{
-      email: email,
-      password: password,
+export default function ConfirmEmail() {
+  const [confirm, setConfirm] = React.useState('');
+  const [check,setCheck] = React.useState("");
+  const confirmation= () => {
+  const email=sessionStorage.getItem('Email');
+    Axios.post("http://localhost:1337/confirm",{
+      confirm:confirm,
+      Email:email
     
     }).then((response) => {
-     if(response.data.message==="email ou mot de passe incorrect"){
-       setLogin(response.data.message);
+     if(response.data.message==="code de verification incorrect"){
+       setCheck(response.data.message);
+       
      }
-     else if(response.data.message==="code de verification needed"){
-      sessionStorage.setItem('Id',response.data.Id);
-      sessionStorage.setItem("Email",response.data.Email);
-      window.location.replace("http://localhost:3000/confirmation");
-     }
-     else{
-      sessionStorage.setItem('Id',response.data[0].Id);  
-      sessionStorage.setItem("confirm","yes");    
-      window.location.replace("http://localhost:3000/");
+     setCheck(response.data.message);
 
-     }
-    
-
-    })
- 
    
+    
+    })
+    if(check==="code de verification correct"){
+      sessionStorage.setItem('confirm',"yes");
+      window.location.href="/";
+    }
+
+    
   };
 
  
@@ -78,11 +72,11 @@ export default function SignIn() {
           <Avatar sx={{ m: 1, bgcolor: '#FFE061' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Se connecter 
-          </Typography>
+          <Typography component="h1" variant="h5" style={{textAlign:"center"}}>
+                Entrez le code de confirmation envoyé par email
+        </Typography>
           <Typography >
-            {login}
+            {check}
           </Typography>
           <Box   noValidate sx={{ mt: 1 }}>
             <TextField
@@ -90,23 +84,13 @@ export default function SignIn() {
               required
               fullWidth
               id="email"
-              label="Adresse Email"
-              name="email"
-              onChange={event => setEmail(event.target.value)}
+              label="code de confirmation"
+              name="confirmation"
+              onChange={event => setConfirm(event.target.value)}
               autoComplete="email"
               autoFocus
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Mot de passe"
-              onChange={event => setPassword(event.target.value)}
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
+           
         
             <Button
               type="submit"
@@ -115,24 +99,13 @@ export default function SignIn() {
               style={{ color: 'white',
           backgroundColor: '#FFE061', }}
               sx={{ mt: 3, mb: 2 }}
-              onClick={signin}
+              onClick={confirmation}
               method="post"
              
             >
-              Se connecter
+              Confirmer
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2"   style={{ color:"black",textDecoration:"none"}}>
-                  Mot de passe oublié ?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/SignUp" variant="body2" style={{ color:"black",textDecoration:"none"}}>
-                  {"Vous n'avez pas de compte? S'inscrire"}
-                </Link>
-              </Grid>
-            </Grid>
+            
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />

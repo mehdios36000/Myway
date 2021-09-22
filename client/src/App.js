@@ -10,6 +10,7 @@ import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import OrientationCon from './components/orientationCon'
 import SchedulePage from './components/schedulePage';
+import ConfirmEmail from './components/confirmEmail';
 
 
 
@@ -25,13 +26,19 @@ const useStyles = makeStyles(theme => ({
 }));
 function App() {
   const [loginStatus, setLoginStatus] = useState(false);
+  const [loginStatusconf, setLoginStatusconf] = useState(false);
 
   
   useEffect(() => {
-    if(sessionStorage.getItem("Id")){
+    if(sessionStorage.getItem("Id") && sessionStorage.getItem("confirm")){
       setLoginStatus(true);
 
     }
+    if(sessionStorage.getItem("Id")){
+      setLoginStatusconf(true);
+
+    }
+   
  
     
   }, [])
@@ -45,23 +52,21 @@ function App() {
       <Header/>
   
        <Switch>
-       <Route path="/SignIn" exact>
-            <SignIn/>
-          </Route>
+      
+        {loginStatus ?   null :  <Route path="/SignIn" exact><SignIn/></Route>}
          <Route path="/" exact >
          <DescHeader/>
          <HomeDescriptionBox/>
          <More/>
          </Route>
-         <Route path="/SignUp" exact>
-
-            <SignUp/>
-        
-         </Route>
+         {loginStatus ?   null :  <Route path="/SignUp" exact><SignUp/></Route>}
+         
          <Route path="/OrientationCon" exact>
               <OrientationCon/>
          </Route>
          {loginStatus ?  <Route path="/Schedule" exact><SchedulePage/></Route> : null}
+         {loginStatusconf ?   <Route path="/confirmation" exact><ConfirmEmail/></Route> : null}
+        
        </Switch>
 
       

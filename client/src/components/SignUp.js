@@ -16,6 +16,7 @@ import Axios from 'axios';
 
 
 
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -39,11 +40,12 @@ export default function SignUp() {
   const [date, setDate] = React.useState(new Date());
   const [School, setSchool] = React.useState('');
   const [Grade, setGrade] = React.useState('');
+  const[registert,setRegistert]=React.useState("");
 
 
 
   const register= () => {
-   
+    const random = Math.floor(Math.random() * 1000000);
     Axios.post("http://localhost:1337/register",{
       email: email,
       password: password,
@@ -51,21 +53,17 @@ export default function SignUp() {
       city: city,
       date: date,
       school: School,
-      grade: Grade
+      grade: Grade,
+      verification: random
     }).then((response) => {
-    
-      console.log(response);
-      
-
+      if(response.data.message==="l'utilisateur existe deja"){
+        setRegistert(response.data.message);
+      }
     })
- 
-    window.location.replace("http://localhost:3000/SignIn");
+     if(registert===""){
+      window.location.replace("http://localhost:3000/SignIn");
+     }
   };
-
-
-
-
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -85,9 +83,11 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             S'inscrire
           </Typography>
+          <Typography >
+            {registert}
+          </Typography>
           <Typography component="h1" variant="h5" className="error">
             remplissez tous les champs pour activer le bouton s'inscrire
-
           </Typography>
          
           <Box    noValidate  sx={{ mt: 3 }}>
