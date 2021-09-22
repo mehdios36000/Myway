@@ -166,11 +166,7 @@ app.post("/schedule",(req,res)=>{
            console.log({err:err});
        }
        else{
-           if(data.length>0){
-               res.send(data);
-           }else{
-               res.send({message:'aucun oriantateur trouver'});
-           }
+           res.send({message:'success'});
        }
     });
 });

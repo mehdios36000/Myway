@@ -88,6 +88,30 @@ export default function SignIn() {
 
     })
   }
+  const handleSubmit=()=>{
+    Axios.post("http://localhost:1337/schedule",{
+      name:name,
+      date:date,
+    
+    }).then((response) => {
+     if(response.data.message==="success"){
+      
+      window.location.replace("http://localhost:3000/");
+     
+       
+    
+      
+       
+     }else{
+     
+
+
+     }
+    
+
+    })
+
+  }
 
  
  
@@ -153,7 +177,7 @@ export default function SignIn() {
               style={{ color: 'white',
           backgroundColor: '#FFE061', }}
               sx={{ mt: 3, mb: 2}}
-              // onClick={handleSubmit}
+              onClick={handleSubmit}
               method="post"
               
              
