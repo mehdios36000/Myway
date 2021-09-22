@@ -92,7 +92,7 @@ export default function SignIn() {
     Axios.post("http://localhost:1337/schedule",{
       name:name,
       date:date,
-    
+      id:sessionStorage.getItem("Id")
     }).then((response) => {
      if(response.data.message==="success"){
       

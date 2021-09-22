@@ -160,14 +160,60 @@ app.post("/times",(req,res)=>{
 app.post("/schedule",(req,res)=>{
     const name=req.body.name;
     const time=req.body.date;
+    const id=req.body.id;
 
     db.query("UPDATE `times` SET `isTaken` = '1' WHERE `times`.`name` = ? AND `times`.`time` = ? ",[name,time],(err,data)=>{
        if(err){
            console.log({err:err});
        }
        else{
+           db.query("SELECT  * FROM `Users` WHERE Id=?",[id],(err,data)=>{
+                if(err){
+                        console.log({err:err});
+                }
+                else{
+                    if(data.length>0){
+                        const output=`<h1>Bonjour ${data[0].Name},</h1>
+                <p>Votre rendez vous aura lieu aujourd'hui  a ${time} 
+                <br/>  avec ${name}
+                 </p>
+                `;
+                let transporter = nodemailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user:"mywayetst@gmail.com",
+                        pass:"aqzsedrftg1A-",
+                    }
+                });
+                let mailOptions = {
+                    from: '"MyWay" <mywayetst@gmail.com>',
+                    to: data[0].Email,
+                    subject: 'Rendez-vous orientation',
+                    text: 'Hello world?',
+                    html: output
+                };
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return console.log(error);
+                    }
+                    console.log('Message sent: %s', info.messageId);
+                });
+                
+
+                
+
+
+                    }
+                }
+           });
+        
            res.send({message:'success'});
+
+           
        }
+       
     });
 });
 
