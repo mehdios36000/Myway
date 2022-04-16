@@ -1,3 +1,4 @@
+require('dotenv').config()
 var express = require('express');
 var mysql=require('mysql');
 var app = express();
@@ -8,14 +9,15 @@ app.use(cors());
 
 
 
+//add the jwt token authentification still on going
 
 
 
 const db=mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'root',
-    database:'myway',
+    host:process.env.HOST,
+    user:process.env.USER,
+    password:process.env.PASSWORD,
+    database:process.env.DATABASE,
     port:8889
 });
 app.post("/register",(req,res)=>{
@@ -47,8 +49,8 @@ app.post("/register",(req,res)=>{
                     port: 465,
                     secure: true,
                     auth: {
-                        user:"mywayetst@gmail.com",
-                        pass:"aqzsedrftg1A-",
+                        user:process.env.USERMAIL,
+                        pass:process.env.PASSWORDMAIL,
                     }
                 });
                 let mailOptions = {
@@ -183,8 +185,8 @@ app.post("/schedule",(req,res)=>{
                     port: 465,
                     secure: true,
                     auth: {
-                        user:"mywayetst@gmail.com",
-                        pass:"aqzsedrftg1A-",
+                        user:process.env.USERMAIL,
+                        pass:process.env.PASSWORDMAIL,
                     }
                 });
                 let mailOptions = {
