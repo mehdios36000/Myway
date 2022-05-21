@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
         boxShadow: '0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12)'
     },
     goDown: {
-        color: "#FFE061",
+        color: "#18B9EC",
         fontSize: '4rem',
 
     },

@@ -14,11 +14,11 @@ const useStyles = makeStyles(theme => ({
 
     },
     title: {
-        fontFamily: 'Nunito',
+        fontFamily: 'Abel',
         fontSize: '2.5rem',
     },
     description: {
-        fontFamily: 'Nunito',
+        fontFamily: 'Abel',
         fontSize: '1.5rem',
         [theme.breakpoints.down('md')]: {
             textAlign: 'center',

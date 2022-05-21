@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme)=>({
    fontSize: '3rem',
     },
     colorText: {
-        color: "#FFE061",
+        color: "#18B9EC",
     },
     goDown: {
-        color: "#FFE061",
+        color: "#18B9EC",
         fontSize: '4rem',
 
     }

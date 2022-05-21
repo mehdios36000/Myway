@@ -16,10 +16,12 @@ import ConfirmEmail from './components/confirmEmail';
 
 const useStyles = makeStyles(theme => ({
   root: {
+   
+    display: 'flex',
+    flexDirection: 'column',
     minHeight: '100vh',
-    backgroundImage: `url("https://images.pexels.com/photos/242236/pexels-photo-242236.jpeg?crop=entropy&cs=srgb&dl=pexels-lorenzo-242236.jpg&fit=crop&fm=jpg&h=4000&w=6000")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
+    background: '#d8d8d8',
+    fontFamily: 'Abel',
 
   },
 

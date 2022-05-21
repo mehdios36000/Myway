@@ -1,29 +1,30 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
-import { AppBar,Toolbar,Button} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import { AppBar, Toolbar, Button } from '@material-ui/core'
 import CustomizedMenus from './CustomizedMenus'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { CssBaseline } from '@mui/material';
 
 
 
-const useStyles = makeStyles((theme)=>({
-    root:{
-        display:"flex",
-        justifyContent:"center",
-        alignItems:"center",
-        textAlign:"center",
-        height:"8vh",
-        fontFamily: 'Nunito',
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        height: "8vh",
+        fontFamily: 'Abel',
 
     },
     appBar: {
         background: "none",
-        
-      
+
+
     },
     appbarWrapper: {
-         display:"flex",
-         justifyContent:"space-between",
+        display: "flex",
+        justifyContent: "space-between",
     },
     appbarTitle: {
         color: "black",
@@ -38,31 +39,27 @@ const useStyles = makeStyles((theme)=>({
 
     },
     colorText: {
-        color: "#FFE061",
+        color: "#18B9EC",
     }
-   
-    
+
+
 
 }))
 
 function Header() {
     const classes = useStyles()
-  
+
 
     return (
         <div className={classes.root} id="header">
-            <AppBar className={classes.appBar} elevation={3}>
-                <Toolbar className={classes.appbarWrapper}>
-                {/* <h1 className={classes.appbarTitle}>My <span className={classes.colorText}>way</span></h1> */}
-                 <Button component={Link} to={'/'}>
-                <img src={process.env.PUBLIC_URL+"/assets/W.png"} width="50" alt="logo" />
-                </Button>
-             <CustomizedMenus/>
 
-                </Toolbar>
+            <AppBar className={classes.appBar} elevation={3}>
+ 
+                <CustomizedMenus />
+ 
             </AppBar>
-            
-            
+
+
         </div>
     )
 }
